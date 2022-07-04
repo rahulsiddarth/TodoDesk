@@ -8,9 +8,13 @@ const app = express();
 
 app.use(
   session({
-    secret: 'secret123',
+    secret: 'jahsdjh651a6s51dae',
     resave: false,
     saveUninitialized: false,
+    httpOnly: true, //prevent js from accessing cookies
+    secure: true, // only set cookies over https
+    ephemeral: true, //destroy cookies when browser closes
+    sameSite: 'none',
   })
 );
 app.set('view engine', 'ejs');
