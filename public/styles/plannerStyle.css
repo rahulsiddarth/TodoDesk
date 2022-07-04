@@ -124,6 +124,59 @@ body {
   margin-left: 8px;
 }
 
+#mainTitle span {
+  display: inline-block;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-iteration-count: 1;
+  transition: color 0.6s;
+}
+
+.highlight-red:hover {
+  animation-name: rubberBand;
+  color: var(--red);
+}
+
+.highlight-yellow:hover {
+  animation-name: rubberBand;
+  color: var(--orange);
+}
+
+.highlight-green:hover {
+  animation-name: rubberBand;
+  color: var(--green);
+}
+
+@keyframes rubberBand {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+
+  75% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
 #searchBar {
   font-size: small;
   background-color: var(--searchbar-bg);
