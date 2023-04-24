@@ -9,11 +9,21 @@
     <title>Planner</title>
   </head>
   <body>
+    <canvas id="canvas">
+      <!-- fallback content -->
+      HTML Canvas
+    </canvas>
     <div class="login">
       <p>TODO DESK</p>
       <form class="form" action="/userin" method="POST">
         <div class="input">
-          <input type="text" class="input__email" placeholder="Username" name="uname" required />
+          <input
+            type="text"
+            class="input__email"
+            placeholder="Username"
+            name="uname"
+            required
+          />
         </div>
         <div class="input">
           <input
@@ -24,12 +34,81 @@
             required
           />
         </div>
-        <div id="errorMsg"><% if(messages.error) { %> <%= messages.error %> <% } %></div>
-        <button class="formBtn" id="logInBtn" type="submit" value="login" name="action">
+        <div id="errorMsg">
+          <% if(messages.error) { %> <%= messages.error %> <% } %>
+        </div>
+        <button
+          class="formBtn"
+          id="logInBtn"
+          type="submit"
+          value="login"
+          name="action"
+        >
           Log in
         </button>
         <a href="/signin" style="font-size: small">New user? signin</a>
       </form>
     </div>
+    <script>
+      const canvas = document.getElementById('canvas');
+
+      const context = canvas.getContext('2d');
+
+      const drawPattern = () => {
+        let w = innerWidth,
+          h = innerHeight;
+
+        // console.log(w, h);
+
+        context.strokeStyle = '#5BC8AC';
+        for (let y = 0; y < h; y += 50) {
+          for (let x = 0; x < w; x += 50) {
+            context.beginPath();
+            context.arc(x, y, 1, 0, 2 * Math.PI);
+            context.stroke();
+          }
+        }
+      };
+
+      function setSize() {
+        canvas.height = innerHeight;
+        canvas.width = innerWidth;
+        context.clearRect(0, 0, innerWidth, innerHeight);
+        drawPattern();
+      }
+
+      addEventListener('resize', () => setSize());
+
+      setSize();
+      drawPattern();
+
+      canvas.onmousemove = function (e) {
+        let rect = this.getBoundingClientRect(),
+          x = e.clientX - rect.left,
+          y = e.clientY - rect.top,
+          cx = ((x / 50) | 0) * 50,
+          cy = ((y / 50) | 0) * 50;
+
+        // console.log(x, y, cx, cy);
+        // console.log(rect);
+
+        context.clearRect(cx - 11, cy - 11, 22, 22);
+
+        context.beginPath();
+        context.strokeStyle = '#e35664';
+        context.arc(cx + 3, cy - 3, 10, 0, 2 * Math.PI);
+        context.stroke();
+
+        context.beginPath();
+        context.strokeStyle = '#fdb03c';
+        context.arc(cx, cy, 10, 0, 2 * Math.PI);
+        context.stroke();
+
+        context.beginPath();
+        context.strokeStyle = '#42bc83';
+        context.arc(cx - 3, cy + 3, 10, 0, 2 * Math.PI);
+        context.stroke();
+      };
+    </script>
   </body>
 </html>
